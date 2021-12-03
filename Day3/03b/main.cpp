@@ -6,11 +6,13 @@
 
 using namespace std;
 
+// O(n)
 template<typename T>
 void verboseBinaryCountingSort(T* arr, size_t from, size_t to, size_t index, size_t& split, bool& isZeroMostCommon) {
 	size_t zeros = 0;
 	size_t ones = 0;
 
+	// O(n)
 	for(size_t i = from; i < to; ++i) {
 		if(arr[i][index] == '0') {
 			++zeros;
@@ -25,12 +27,14 @@ void verboseBinaryCountingSort(T* arr, size_t from, size_t to, size_t index, siz
 
 	size_t onesIndex = from + zeros;
 
+	// O(n)
 	for(size_t i = from; i < from + zeros; ) {
 		if(arr[i][index] == '0') {
 			++i;
 		}
 		else {
-			swap(arr[i], arr[onesIndex]);
+			// O(1)
+			arr[i].swap(arr[onesIndex]);
 			++onesIndex;
 		}
 	}
@@ -76,14 +80,16 @@ int main(int argc, char** argv) {
 	string oxygenRating;
 	string CO2Rating;
 
+	// O(m * n)
 	// resolve oxygen
-	for(size_t i = 1; i < length + 1; ++i) {
+	for(size_t i = 1; i < length + 1; ++i) { // O(m)
 		if(toOxygen - fromOxygen == 1) {
 			oxygenRating = strings[fromOxygen];
 			break;
 		}
 		assert(i < length);
 
+		// O(n)
 		verboseBinaryCountingSort(strings.data(), fromOxygen, toOxygen, i, splitOxygen, isZeroMostCommonOxygen);
 		
 		if(isZeroMostCommonOxygen) {
